@@ -6,30 +6,17 @@ import {
   Button,
   Container,
   IconButton,
-  InputAdornment,
-  TextField,
+  Input,
   Toolbar,
   useTheme,
 } from "@mui/material";
 
 import mainLogo from "../assets/mainLogo.svg";
 
-import { useMemo, useState } from "react";
-import {
-  AccountCircle,
-  ConfirmationNumber,
-  Notifications,
-  Search,
-} from "@mui/icons-material";
+import { ConfirmationNumber, Notifications } from "@mui/icons-material";
 
 export const Header: React.FC = () => {
   const theme = useTheme();
-
-  const [notificationsBadgeNumber, setNotificationsBadgeNumber] = useState(1);
-
-  const memoNotifications = useMemo(() => {
-    return notificationsBadgeNumber;
-  });
 
   return (
     <AppBar
@@ -43,16 +30,42 @@ export const Header: React.FC = () => {
           justifyContent={"space-between"}
           height={"70px"}
         >
-          <Box>
-            <Box component={"img"} src={mainLogo} height={theme.spacing(5)} />
-
+          <Box display={"flex"}>
+            <Box
+              component={"img"}
+              src={mainLogo}
+              height={theme.spacing(5)}
+            />
+            <Input
+              id="searchInput"
+              disableUnderline
+              sx={{
+                marginLeft: theme.spacing(4.4),
+                backgroundColor: "white",
+                borderRadius: theme.spacing(1),
+                paddingLeft: theme.spacing(2),
+                paddingRight: theme.spacing(2),
+                width: "375px",
+              }}
+              placeholder="Search your best events, converts and more..."
+            />
           </Box>
 
           <Toolbar>
+            <Box
+              display={"flex"}
+              gap={theme.spacing(4)}
+              marginRight={theme.spacing(4)}
+            >
+              <Button sx={{ color: "white" }}>EVENTOS</Button>
+              <Button sx={{ color: "white" }}>FEED</Button>
+              <Button sx={{ color: "white" }}>SEGUINDO</Button>
+            </Box>
             <Button
               id="myTicketsBtn"
               variant="contained"
               startIcon={<ConfirmationNumber />}
+              sx={{ marginRight: theme.spacing(1) }}
             >
               MY TICKETS
             </Button>
@@ -60,6 +73,7 @@ export const Header: React.FC = () => {
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
+              // sx={{backgroundColor: theme.palette.primary}}
             >
               <Badge badgeContent={17} color="error">
                 <Notifications />
